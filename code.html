@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinApp - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#005049",
+                    "primary-container": "#131b2e",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#d3e4fe",
+                    "surface-dim": "#cbdbf5",
+                    "primary-fixed": "#dae2fd",
+                    "surface-container": "#e5eeff",
+                    "on-primary-container": "#7c839b",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-secondary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "surface-variant": "#d3e4fe",
+                    "on-secondary-container": "#006f66",
+                    "on-surface-variant": "#45464d",
+                    "secondary-fixed-dim": "#6bd8cb",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "background": "#f8f9ff",
+                    "tertiary-container": "#001a42",
+                    "inverse-surface": "#213145",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "tertiary-fixed": "#d8e2ff",
+                    "secondary-container": "#86f2e4",
+                    "secondary": "#006a61",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#000000",
+                    "primary-fixed-dim": "#bec6e0",
+                    "primary": "#000000",
+                    "outline": "#76777d",
+                    "on-background": "#0b1c30",
+                    "surface-container-high": "#dce9ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#001a42",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "secondary-fixed": "#89f5e7",
+                    "on-tertiary-container": "#3980f4",
+                    "on-secondary-fixed": "#00201d",
+                    "surface-tint": "#565e74",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f8f9ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#131b2e",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-low": "#eff4ff",
+                    "on-surface": "#0b1c30"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "stack-sm": "12px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "stack-lg": "48px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "stack-md": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "caption": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #f8f9ff; font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .chart-bar { transition: height 1s ease-in-out; }
+        .card-shadow { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-surface-container-low border-r border-outline-variant hidden md:flex flex-col p-stack-sm space-y-base z-50">
+<div class="px-4 py-6">
+<h1 class="font-headline-md text-headline-md font-black text-secondary">FinApp</h1>
+<p class="text-on-surface-variant font-label-md text-[10px] tracking-widest uppercase">Financial Empowerment</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Dashboard Active -->
+<a class="bg-secondary-container text-on-secondary-container font-bold rounded-lg flex items-center px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high flex items-center px-4 py-3 rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined mr-3 text-on-surface-variant group-hover:text-primary">account_balance</span>
+<span class="font-label-md">Accounts</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high flex items-center px-4 py-3 rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined mr-3 text-on-surface-variant group-hover:text-primary">receipt_long</span>
+<span class="font-label-md">Transactions</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high flex items-center px-4 py-3 rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined mr-3 text-on-surface-variant group-hover:text-primary">savings</span>
+<span class="font-label-md">Budgets</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high flex items-center px-4 py-3 rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined mr-3 text-on-surface-variant group-hover:text-primary">query_stats</span>
+<span class="font-label-md">Insights</span>
+</a>
+</nav>
+<div class="pt-base border-t border-outline-variant mt-auto">
+<button class="w-full bg-secondary text-on-secondary py-3 rounded-xl font-bold flex items-center justify-center space-x-2 active:scale-95 transition-transform mb-4">
+<span class="material-symbols-outlined">add</span>
+<span>Add Transaction</span>
+</button>
+<a class="text-on-surface-variant hover:bg-surface-container-high flex items-center px-4 py-3 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined mr-3">help</span>
+<span class="font-label-md">Support</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high flex items-center px-4 py-3 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined mr-3">logout</span>
+<span class="font-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="md:ml-64 min-h-screen pb-24 md:pb-8">
+<!-- Top App Bar -->
+<header class="w-full sticky top-0 z-40 bg-surface-container-lowest border-b border-outline-variant shadow-sm h-16 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center space-x-4">
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-primary">Hola, Alejandro</h2>
+<p class="hidden md:block text-on-surface-variant font-caption">Bienvenido de nuevo a tu panel financiero.</p>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-secondary-container w-48 lg:w-64" placeholder="Buscar..." type="text"/>
+</div>
+<button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors text-on-surface-variant">notifications</button>
+<button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors text-on-surface-variant">settings</button>
+<div class="w-10 h-10 rounded-full border-2 border-secondary overflow-hidden active:scale-95 transition-transform cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a young male financial executive with a friendly expression. He is wearing a dark navy blazer over a crisp white shirt. The background is a soft, blurred office setting with warm, ambient lighting. The overall mood is professional, trustworthy, and modern, fitting a high-end fintech application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjULf2IYPEdyeL3nPXi01f5u3fVYkbCH95bqa6APaFKJVh5UpbWK_PmLG67Wzl3LYvXwqArXNp96m-dM0RYxq_bcJlcv_gyWlyqvCO6ijbV2Wx5dHmOiBUCSandntY7yc2zogxRqEHrLP_Cn0E-shbzTuYWwfjSqFvL6thxGjmbTNlC6cPHst55wPxCqTgh8PqSJiXV3-c6yYzJyDI_UL4__hCkZpEgdWFxsnqj_q7ooOXnGDVAnQ9MkaCu5LtHwTRaWQiKGdIOhE"/>
+</div>
+</div>
+</header>
+<div class="p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto space-y-stack-lg">
+<!-- Summary Cards Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Total Balance -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl card-shadow border border-outline-variant relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">account_balance_wallet</span>
+</div>
+<p class="text-on-surface-variant font-label-md mb-2">Balance Total</p>
+<h3 class="font-headline-lg text-headline-lg text-primary">$45,230.50</h3>
+<div class="mt-4 flex items-center text-secondary font-medium text-sm">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+<span>+2.4% este mes</span>
+</div>
+</div>
+<!-- Monthly Income -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl card-shadow border border-outline-variant relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity text-secondary">
+<span class="material-symbols-outlined text-6xl">payments</span>
+</div>
+<p class="text-on-surface-variant font-label-md mb-2">Ingresos del Mes</p>
+<h3 class="font-headline-lg text-headline-lg text-secondary">$8,400.00</h3>
+<div class="mt-4 flex items-center text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-sm mr-1">calendar_month</span>
+<span>Septiembre 2023</span>
+</div>
+</div>
+<!-- Monthly Expenses -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl card-shadow border border-outline-variant relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity text-error">
+<span class="material-symbols-outlined text-6xl">shopping_cart</span>
+</div>
+<p class="text-on-surface-variant font-label-md mb-2">Gastos del Mes</p>
+<h3 class="font-headline-lg text-headline-lg text-error">$3,120.25</h3>
+<div class="mt-4 flex items-center text-on-surface-variant font-medium text-sm">
+<span class="material-symbols-outlined text-sm mr-1">info</span>
+<span>37% de los ingresos</span>
+</div>
+</div>
+</section>
+<!-- Main Area: Charts Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Bar Chart: Gastos vs Ingresos -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-stack-md rounded-xl card-shadow border border-outline-variant">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h4 class="font-headline-md text-headline-md text-primary">Gastos vs Ingresos</h4>
+<p class="text-on-surface-variant font-caption">Análisis de los últimos 6 meses</p>
+</div>
+<div class="flex space-x-4">
+<div class="flex items-center">
+<span class="w-3 h-3 rounded-full bg-secondary mr-2"></span>
+<span class="text-xs font-medium">Ingresos</span>
+</div>
+<div class="flex items-center">
+<span class="w-3 h-3 rounded-full bg-error mr-2"></span>
+<span class="text-xs font-medium">Gastos</span>
+</div>
+</div>
+</div>
+<!-- Simplified Visual Representation of a Chart -->
+<div class="h-64 flex items-end justify-between px-2 space-x-2 md:space-x-8">
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full flex justify-center items-end space-x-1 h-full">
+<div class="bg-secondary w-3 md:w-6 rounded-t-sm chart-bar" style="height: 60%"></div>
+<div class="bg-error w-3 md:w-6 rounded-t-sm chart-bar" style="height: 40%"></div>
+</div>
+<span class="text-[10px] mt-2 font-medium text-on-surface-variant">ABR</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full flex justify-center items-end space-x-1 h-full">
+<div class="bg-secondary w-3 md:w-6 rounded-t-sm chart-bar" style="height: 75%"></div>
+<div class="bg-error w-3 md:w-6 rounded-t-sm chart-bar" style="height: 35%"></div>
+</div>
+<span class="text-[10px] mt-2 font-medium text-on-surface-variant">MAY</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full flex justify-center items-end space-x-1 h-full">
+<div class="bg-secondary w-3 md:w-6 rounded-t-sm chart-bar" style="height: 55%"></div>
+<div class="bg-error w-3 md:w-6 rounded-t-sm chart-bar" style="height: 50%"></div>
+</div>
+<span class="text-[10px] mt-2 font-medium text-on-surface-variant">JUN</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full flex justify-center items-end space-x-1 h-full">
+<div class="bg-secondary w-3 md:w-6 rounded-t-sm chart-bar" style="height: 90%"></div>
+<div class="bg-error w-3 md:w-6 rounded-t-sm chart-bar" style="height: 25%"></div>
+</div>
+<span class="text-[10px] mt-2 font-medium text-on-surface-variant">JUL</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full flex justify-center items-end space-x-1 h-full">
+<div class="bg-secondary w-3 md:w-6 rounded-t-sm chart-bar" style="height: 80%"></div>
+<div class="bg-error w-3 md:w-6 rounded-t-sm chart-bar" style="height: 45%"></div>
+</div>
+<span class="text-[10px] mt-2 font-medium text-on-surface-variant">AGO</span>
+</div>
+<div class="flex-1 flex flex-col items-center group cursor-pointer">
+<div class="w-full flex justify-center items-end space-x-1 h-full">
+<div class="bg-secondary w-3 md:w-6 rounded-t-sm chart-bar" style="height: 85%"></div>
+<div class="bg-error w-3 md:w-6 rounded-t-sm chart-bar" style="height: 30%"></div>
+</div>
+<span class="text-[10px] mt-2 font-medium text-on-surface-variant">SEP</span>
+</div>
+</div>
+</div>
+<!-- Pie Chart: Gastos por Categoría -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl card-shadow border border-outline-variant">
+<h4 class="font-headline-md text-headline-md text-primary mb-6">Gastos por Categoría</h4>
+<!-- Simplified Visual Representation of a Pie/Donut Chart -->
+<div class="relative w-48 h-48 mx-auto mb-8">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e5eeff" stroke-width="4"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#006a61" stroke-dasharray="40, 100" stroke-width="4"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#ba1a1a" stroke-dasharray="25, 100" stroke-dashoffset="-40" stroke-width="4"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#3980f4" stroke-dasharray="15, 100" stroke-dashoffset="-65" stroke-width="4"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#000000" stroke-dasharray="20, 100" stroke-dashoffset="-80" stroke-width="4"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-bold text-primary">$3.1k</span>
+<span class="text-[10px] text-on-surface-variant">TOTAL</span>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<span class="w-2 h-2 rounded-full bg-secondary mr-2"></span>
+<span class="text-xs font-medium">Vivienda</span>
+</div>
+<span class="text-xs font-bold">40%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<span class="w-2 h-2 rounded-full bg-error mr-2"></span>
+<span class="text-xs font-medium">Comida</span>
+</div>
+<span class="text-xs font-bold">25%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container mr-2"></span>
+<span class="text-xs font-medium">Transporte</span>
+</div>
+<span class="text-xs font-bold">15%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<span class="w-2 h-2 rounded-full bg-primary mr-2"></span>
+<span class="text-xs font-medium">Ocio & Otros</span>
+</div>
+<span class="text-xs font-bold">20%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Savings Goals Section -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-headline-md text-headline-md text-primary">Objetivos de Ahorro</h4>
+<button class="text-secondary font-medium text-sm flex items-center hover:underline transition-all">
+                        Ver todos <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Goal 1 -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl card-shadow border border-outline-variant hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex items-center mb-4">
+<div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container mr-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">flight</span>
+</div>
+<div class="flex-1">
+<h5 class="font-bold text-primary">Viaje a Japón</h5>
+<p class="text-xs text-on-surface-variant">Meta: $5,000</p>
+</div>
+<span class="text-sm font-bold text-secondary">72%</span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden mb-2">
+<div class="bg-secondary h-full rounded-full transition-all duration-1000" style="width: 72%"></div>
+</div>
+<p class="text-[11px] text-on-surface-variant flex justify-between">
+<span>$3,600 ahorrados</span>
+<span>Faltan $1,400</span>
+</p>
+</div>
+<!-- Goal 2 -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl card-shadow border border-outline-variant hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex items-center mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-tertiary-container mr-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">directions_car</span>
+</div>
+<div class="flex-1">
+<h5 class="font-bold text-primary">Nuevo Auto</h5>
+<p class="text-xs text-on-surface-variant">Meta: $25,000</p>
+</div>
+<span class="text-sm font-bold text-on-tertiary-container">28%</span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden mb-2">
+<div class="bg-on-tertiary-container h-full rounded-full transition-all duration-1000" style="width: 28%"></div>
+</div>
+<p class="text-[11px] text-on-surface-variant flex justify-between">
+<span>$7,000 ahorrados</span>
+<span>Faltan $18,000</span>
+</p>
+</div>
+<!-- Goal 3 -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl card-shadow border border-outline-variant hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex items-center mb-4">
+<div class="w-12 h-12 rounded-lg bg-error-container flex items-center justify-center text-on-error-container mr-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">house</span>
+</div>
+<div class="flex-1">
+<h5 class="font-bold text-primary">Pago Inicial Casa</h5>
+<p class="text-xs text-on-surface-variant">Meta: $60,000</p>
+</div>
+<span class="text-sm font-bold text-on-error-container">12%</span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden mb-2">
+<div class="bg-on-error-container h-full rounded-full transition-all duration-1000" style="width: 12%"></div>
+</div>
+<p class="text-[11px] text-on-surface-variant flex justify-between">
+<span>$7,200 ahorrados</span>
+<span>Faltan $52,800</span>
+</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-margin-mobile py-2 pb-safe bg-surface-container-lowest shadow-[0_-4px_20px_rgba(15,23,42,0.05)] z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-caption text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high transition-transform active:scale-95 px-4 py-1 rounded-full" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-caption text-[10px]">Wallets</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high transition-transform active:scale-95 px-4 py-1 rounded-full" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-caption text-[10px]">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high transition-transform active:scale-95 px-4 py-1 rounded-full" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-caption text-[10px]">Analysis</span>
+</a>
+</nav>
+<script>
+        // Simple Micro-interactions
+        document.querySelectorAll('.active\\:scale-95').forEach(el => {
+            el.addEventListener('mousedown', () => el.style.transform = 'scale(0.95)');
+            el.addEventListener('mouseup', () => el.style.transform = 'scale(1)');
+            el.addEventListener('mouseleave', () => el.style.transform = 'scale(1)');
+        });
+
+        // Dynamic Chart entry effect simulation
+        window.addEventListener('load', () => {
+            const bars = document.querySelectorAll('.chart-bar');
+            bars.forEach(bar => {
+                const finalHeight = bar.style.height;
+                bar.style.height = '0%';
+                setTimeout(() => {
+                    bar.style.height = finalHeight;
+                }, 100);
+            });
+        });
+    </script>
+</body></html>
